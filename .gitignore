@@ -1,0 +1,5 @@
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
+
+# Regenerable research cache; the Markdown research artifacts remain versioned.
+/.planning/research/.cache/

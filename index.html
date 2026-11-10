@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173D33">
+  <title>АвтоРитм — сервисная книжка автомобиля</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="#control" aria-label="АвтоРитм: к контролю обслуживания">↗ авто<span>ритм</span></a>
+    <span class="header-label">ЛИЧНАЯ СЕРВИСНАЯ КНИЖКА</span>
+    <span class="storage-label">Данные только на устройстве</span>
+  </header>
+
+  <main class="app-shell">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">ВАШ АВТОМОБИЛЬ · ПОД КОНТРОЛЕМ</p>
+      <h1 id="page-title">Забота о машине<br><em>без лишних хлопот.</em></h1>
+      <p>Сохраняйте историю работ, планируйте обслуживание и сразу видьте, что требует внимания.</p>
+    </section>
+
+    <p id="app-status" class="notice notice-success" role="status" aria-live="polite" aria-atomic="true" hidden></p>
+    <p id="app-alert" class="notice notice-error" role="alert" hidden></p>
+
+    <section class="control-card" id="control" aria-labelledby="control-title">
+      <div class="control-icon" id="control-icon" aria-hidden="true">◷</div>
+      <div class="control-copy">
+        <p class="eyebrow" id="control-kicker">КОНТРОЛЬ ОБСЛУЖИВАНИЯ</p>
+        <h2 id="control-title">Добавьте автомобиль</h2>
+        <p id="control-message">Укажите марку, модель, год и текущий пробег, чтобы вести историю и планировать обслуживание.</p>
+      </div>
+      <a id="control-action" class="button button-primary" href="#vehicle" data-focus-target="car-make">Открыть паспорт автомобиля</a>
+    </section>
+
+    <section class="workspace" aria-label="Сервисная книжка">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">ВАШ ГАРАЖ</p>
+          <h2>Всё важное — в одном месте</h2>
+        </div>
+        <span>Локальный прототип</span>
+      </div>
+
+      <div class="grid">
+        <article class="card" id="vehicle" aria-labelledby="vehicle-title">
+          <div class="card-head"><span>01 / АВТОМОБИЛЬ</span><span aria-hidden="true">↗</span></div>
+          <h2 id="vehicle-title">Мой автомобиль</h2>
+          <p>Сохраните паспорт автомобиля. Эти данные остаются в текущем браузере и на этом устройстве.</p>
+          <form id="car-form" class="fields" novalidate>
+            <label for="car-make">Марка
+              <input id="car-make" name="make" autocomplete="organization" required aria-describedby="car-make-error" placeholder="Например, Lada">
+              <span class="field-error" id="car-make-error" data-error-for="make"></span>
+            </label>
+            <label for="car-model">Модель
+              <input id="car-model" name="model" required aria-describedby="car-model-error" placeholder="Например, Vesta">
+              <span class="field-error" id="car-model-error" data-error-for="model"></span>
+            </label>
+            <label for="car-year">Год выпуска
+              <input id="car-year" name="year" type="number" inputmode="numeric" min="1950" max="2100" required aria-describedby="car-year-error" placeholder="2020">
+              <span class="field-error" id="car-year-error" data-error-for="year"></span>
+            </label>
+            <label for="car-mileage">Пробег, км
+              <input id="car-mileage" name="mileage" type="number" inputmode="numeric" min="0" max="9999999" required aria-describedby="car-mileage-error" placeholder="85 000">
+              <span class="field-error" id="car-mileage-error" data-error-for="mileage"></span>
+            </label>
+            <label for="car-modification">Модификация <span class="optional">необязательно</span>
+              <input id="car-modification" name="modification" placeholder="Двигатель, коробка">
+            </label>
+            <label for="car-region">Регион <span class="optional">необязательно</span>
+              <input id="car-region" name="region" autocomplete="address-level1" placeholder="Например, Москва">
+            </label>
+            <button type="submit">Сохранить автомобиль</button>
+          </form>
+          <p id="vehicle-summary" class="summary" aria-live="polite" hidden></p>
+        </article>
+
+        <article class="card" id="maintenance" aria-labelledby="maintenance-title">
+          <div class="card-head"><span>02 / ПЛАН ОБСЛУЖИВАНИЯ</span><span aria-hidden="true">◷</span></div>
+          <h2 id="maintenance-title">Ближайшие работы</h2>
+          <p>Добавьте работу и срок по дате, пробегу или обоим критериям.</p>
+          <form id="task-form" class="stack" novalidate>
+            <label for="task-title">Работа
+              <input id="task-title" name="title" required aria-describedby="task-title-error" placeholder="Например, замена масла">
+              <span class="field-error" id="task-title-error" data-error-for="title"></span>
+            </label>
+            <div class="fields fields-compact">
+              <label for="task-due-mileage">При пробеге, км
+                <input id="task-due-mileage" name="dueMileage" type="number" inputmode="numeric" min="0" max="9999999" aria-describedby="task-due-error" placeholder="95 000">
+              </label>
+              <label for="task-due-date">Или до даты
+                <input id="task-due-date" name="dueDate" type="date" aria-describedby="task-due-error">
+              </label>
+            </div>
+            <p class="field-error field-error-group" id="task-due-error" data-error-for="due"></p>
+            <p class="field-note">Срок задан вами. Сверяйте интервалы с руководством автомобиля.</p>
+            <button type="submit">Добавить в план</button>
+          </form>
+          <div id="tasks" class="items" aria-label="Запланированные работы"></div>
+        </article>
+
+        <article class="card" id="history" aria-labelledby="history-title">
+          <div class="card-head"><span>03 / ИСТОРИЯ И РАСХОДЫ</span><span aria-hidden="true">↗</span></div>
+          <h2 id="history-title">Всё, что сделано</h2>
+          <p>Записывайте обслуживание и стоимость — история сохранится в этом браузере.</p>
+          <form id="expense-form" class="stack" novalidate>
+            <label for="expense-title">Работа или расход
+              <input id="expense-title" name="title" required aria-describedby="expense-title-error" placeholder="Например, масло и фильтр">
+              <span class="field-error" id="expense-title-error" data-error-for="title"></span>
+            </label>
+            <div class="fields fields-compact">
+              <label for="expense-amount">Сумма, ₽
+                <input id="expense-amount" name="amount" type="number" inputmode="decimal" min="0" max="999999999" step="0.01" required aria-describedby="expense-amount-error" placeholder="8 500">
+                <span class="field-error" id="expense-amount-error" data-error-for="amount"></span>
+              </label>
+              <label for="expense-date">Дата
+                <input id="expense-date" name="date" type="date" required aria-describedby="expense-date-error">
+                <span class="field-error" id="expense-date-error" data-error-for="date"></span>
+              </label>
+            </div>
+            <label for="expense-mileage">Пробег, км <span class="optional">необязательно</span>
+              <input id="expense-mileage" name="mileage" type="number" inputmode="numeric" min="0" max="9999999" placeholder="85 000">
+              <span class="field-error" id="expense-mileage-error" data-error-for="mileage"></span>
+            </label>
+            <button type="submit">Добавить запись</button>
+          </form>
+          <div class="total"><span>Всего расходов</span><strong id="total" class="numeric">0 ₽</strong></div>
+          <div id="expenses" class="items" aria-label="История работ и расходов"></div>
+        </article>
+      </div>
+      <p class="footnote">Автоматический подбор заводского регламента, распознавание чеков, оценка автомобиля и фоновые уведомления пока не подключены.</p>
+    </section>
+  </main>
+
+  <footer><a class="logo" href="#control">↗ авто<span>ритм</span></a><span>Больше уверенности на каждом километре.</span></footer>
+
+  <dialog id="delete-dialog" aria-labelledby="delete-title" aria-describedby="delete-message">
+    <form method="dialog" class="dialog-content">
+      <p class="eyebrow">ПРОВЕРЬТЕ ДЕЙСТВИЕ</p>
+      <h2 id="delete-title">Удалить запись?</h2>
+      <p id="delete-message"></p>
+      <div class="dialog-actions">
+        <button id="cancel-delete" class="button-secondary" type="button">Отмена</button>
+        <button id="confirm-delete" class="button-danger" type="button">Удалить запись</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
